@@ -9,3 +9,5 @@ select ename, job, SAL from emps;
 SELECT * FROM emps WHERE dept_id != 10;
 
 select * from emps where COMM > SAL;
+
+select * from emps where HIREDATE = '03.12.1981';
