@@ -21,3 +21,6 @@ select * from emps where ENAME LIKE '__A%'; -- 9
 select ID, ENAME, JOB from emps where COMM IS NOT NULL AND COMM != 0; -- 10
 
 SELECT ID, ENAME, JOB, COMM FROM emps WHERE COMM IS NOT NULL ORDER BY COMM DESC; -- 11
+
+SELECT ID, ENAME, JOB, dept_id, HIREDATE FROM emps WHERE JOB NOT IN ('Manager', 'President') ORDER BY dept_id ASC, hire_date DESC; -- 12
+
