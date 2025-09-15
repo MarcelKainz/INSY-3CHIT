@@ -12,4 +12,6 @@ select * from emps where COMM > SAL;
 
 select * from emps where HIREDATE = '03.12.1981';
 
-select ename, Sal where SAL < 1250 AND SAL > 1600
+select ename, Sal where SAL < 1250 AND SAL > 1600;
+
+select * from emps where JOB != MANAGER OR JOB != President;
