@@ -20,3 +20,4 @@ select * from emps where ENAME LIKE '__A%'; -- 9
 
 select ID, ENAME, JOB from emps where COMM IS NOT NULL AND COMM != 0; -- 10
 
+SELECT ID, ENAME, JOB, COMM FROM emps WHERE COMM IS NOT NULL ORDER BY COMM DESC; -- 11
