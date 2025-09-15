@@ -4,16 +4,19 @@ select * from depts; -- 1
 
 select ename, job, HIREDATE from emps where dept_id = 10; -- 2
 
-select ename, job, SAL from emps;
+select ename, job, SAL from emps; -- 3
 
-SELECT * FROM emps WHERE dept_id != 10;
+SELECT * FROM emps WHERE dept_id != 10; -- 4
 
-select * from emps where COMM > SAL;
+select * from emps where COMM > SAL; -- 5
 
-select * from emps where HIREDATE = '03.12.1981';
+select * from emps where HIREDATE = '03.12.1981'; -- 6
 
-select ename, Sal where SAL < 1250 AND SAL > 1600;
+select ename, Sal where SAL < 1250 AND SAL > 1600; -- 7
 
-select * from emps where JOB != MANAGER OR JOB != President;
+select * from emps where JOB != MANAGER OR JOB != President; -- 8
 
-select * from emps where ENAME LIKE '__A%';
+select * from emps where ENAME LIKE '__A%'; -- 9
+
+select ID, ENAME, JOB from emps where COMM IS NOT NULL AND COMM != 0; -- 10
+
