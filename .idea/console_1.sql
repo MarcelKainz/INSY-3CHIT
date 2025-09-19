@@ -26,4 +26,4 @@ SELECT ID, ENAME, JOB, dept_id, HIREDATE FROM emps WHERE JOB NOT IN ('Manager', 
 
 SELECT ENAME FROM emps WHERE LENGTH(ENAME) > 6; -- 13
 
-SELECT CONCAT(ENAME, ' - ', JOB) AS Mitarbeiter_Info FROM emps WHERE dept_id = 30;
+SELECT CONCAT(ENAME, ' - ', JOB) AS Mitarbeiter_Info FROM emps WHERE dept_id = 30; -- 14
