@@ -30,4 +30,6 @@ SELECT CONCAT(ENAME, ' - ', JOB) AS Mitarbeiter_Info FROM emps WHERE dept_id = 3
 
 -- NVL behandelt COMM also die Provision, wenn sie null ist als 0. | SELECT SAL+COMM from emps && SELECT SAL+NVL(COMM,0) from emps; -- 15
 
-select ename, SAL as Monthly, SAL/22 as Daily, SAL/176 as Hourly from emps -- 16
+select ename, SAL as Monthly, SAL/22 as Daily, SAL/176 as Hourly from emps; -- 16
+
+SELECT SUM(SAL + IFNULL(COMM, 0)) AS Monats_Gesamtbetrag FROM emps; -- 17
