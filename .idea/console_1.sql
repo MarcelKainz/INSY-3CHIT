@@ -57,4 +57,3 @@ WHERE dept_id = 30; -- 22
 select COUNT(DISTINCT JOB) where JOB != 'President' AND JOB != 'MANAGER'; -- 23
 
 select count(*)/count(distinct dept_id) from emps; -- 24
-
