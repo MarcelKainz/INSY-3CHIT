@@ -44,3 +44,4 @@ select COUNT(DISTINCT JOB) as AnzahlBerufe from emps; -- 20
 
 -- Weil COUNT alles zusammenzählt und die Werte als INT auswertet und ohne COUNT als STRING behandelt. -- 21
 
+select count(*)/count(distinct dept_id) from emps; -- 24
