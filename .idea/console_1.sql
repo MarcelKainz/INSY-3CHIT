@@ -41,3 +41,6 @@ select AVG(SAL + IFNULL(Comm, 250)) from emps; -- 18
 select COUNT(*) as Gesamt, COUNT(SAL) as MitGehalt, COUNT(COMM IS NOT NULL AND COMM<>0) as MitProvision from emps where dept_id=30; -- 19
 
 select COUNT(DISTINCT JOB) as AnzahlBerufe from emps; -- 20
+
+-- Weil COUNT alles zusammenzählt und die Werte als INT auswertet und ohne COUNT als STRING behandelt. -- 21
+
