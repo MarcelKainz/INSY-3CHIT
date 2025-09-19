@@ -44,4 +44,17 @@ select COUNT(DISTINCT JOB) as AnzahlBerufe from emps; -- 20
 
 -- Weil COUNT alles zusammenzählt und die Werte als INT auswertet und ohne COUNT als STRING behandelt. -- 21
 
+SELECT
+    SUM(SAL)              AS Summe_SAL,
+    COUNT(SAL)            AS Anzahl_SAL,
+    AVG(SAL)              AS Durchschnitt_SAL,
+    SUM(IFNULL(COMM,0))   AS Summe_COMM,
+    COUNT(COMM)           AS Anzahl_COMM,
+    AVG(IFNULL(COMM,0))   AS Durchschnitt_COMM
+FROM emps
+WHERE dept_id = 30; -- 22
+
+select COUNT(DISTINCT JOB) where JOB != 'President' OR JOB != 'MANAGER'; -- 23
+
 select count(*)/count(distinct dept_id) from emps; -- 24
+
