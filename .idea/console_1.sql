@@ -29,3 +29,5 @@ SELECT ENAME FROM emps WHERE LENGTH(ENAME) > 6; -- 13
 SELECT CONCAT(ENAME, ' - ', JOB) AS Mitarbeiter_Info FROM emps WHERE dept_id = 30; -- 14
 
 -- NVL behandelt COMM also die Provision, wenn sie null ist als 0. | SELECT SAL+COMM from emps && SELECT SAL+NVL(COMM,0) from emps; -- 15
+
+select ename, SAL as Monthly, SAL/22 as Daily, SAL/176 as Hourly from emps -- 16
