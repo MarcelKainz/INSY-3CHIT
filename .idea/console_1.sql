@@ -24,3 +24,6 @@ SELECT ID, ENAME, JOB, COMM FROM emps WHERE COMM IS NOT NULL ORDER BY COMM DESC;
 
 SELECT ID, ENAME, JOB, dept_id, HIREDATE FROM emps WHERE JOB NOT IN ('Manager', 'President') ORDER BY dept_id ASC, hire_date DESC; -- 12
 
+SELECT ENAME FROM emps WHERE LENGTH(ENAME) > 6; -- 13
+
+SELECT CONCAT(ENAME, ' - ', JOB) AS Mitarbeiter_Info FROM emps WHERE dept_id = 30;
