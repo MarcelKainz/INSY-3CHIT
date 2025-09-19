@@ -62,5 +62,4 @@ select * from emps where JOB = 'Manager' OR JOB = 'President'; -- 25
 
 select ename, job, comm from emps where IFNULL(COMM,0) > SAL * 0.25; -- 26
 
-SELECT MIN(SAL + IFNULL(COMM,0)) AS Geringstes_Gehalt
-FROM emps; -- 27
+SELECT MIN(SAL + IFNULL(COMM,0)) AS Geringstes_Gehalt FROM emps; -- 27
