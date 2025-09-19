@@ -33,3 +33,5 @@ SELECT CONCAT(ENAME, ' - ', JOB) AS Mitarbeiter_Info FROM emps WHERE dept_id = 3
 select ename, SAL as Monthly, SAL/22 as Daily, SAL/176 as Hourly from emps; -- 16
 
 SELECT SUM(SAL + IFNULL(COMM, 0)) AS Monats_Gesamtbetrag FROM emps; -- 17
+
+select AVG(SAL + IFNULL(Comm, 250)) from emps; -- 18
