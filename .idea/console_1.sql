@@ -35,3 +35,7 @@ select ename, SAL as Monthly, SAL/22 as Daily, SAL/176 as Hourly from emps; -- 1
 SELECT SUM(SAL + IFNULL(COMM, 0)) AS Monats_Gesamtbetrag FROM emps; -- 17
 
 select AVG(SAL + IFNULL(Comm, 250)) from emps; -- 18
+
+-- Erster Zettel fertig 😎😎😎
+
+select COUNT(*) as Gesamt, COUNT(SAL) as MitGehalt, COUNT(COMM IS NOT NULL AND COMM<>0) as MitProvision from emps where dept_id=30 -- 19
