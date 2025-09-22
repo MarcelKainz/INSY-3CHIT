@@ -66,4 +66,4 @@ SELECT MIN(SAL + IFNULL(COMM,0)) AS Geringstes_Gehalt FROM emps; -- 27
 
 select MIN(HIREDATE) from emps; -- 28
 
-select
+select 
