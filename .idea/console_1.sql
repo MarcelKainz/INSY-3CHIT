@@ -66,4 +66,10 @@ SELECT MIN(SAL + IFNULL(COMM,0)) AS Geringstes_Gehalt FROM emps; -- 27
 
 select MIN(HIREDATE) from emps; -- 28
 
-select 
+select dept_id, JOB, count(*) as AnzahlPersonen from emps Group by dept_id, JOB Order by dept_id, JOB; -- 29
+
+select dept_id, Max(SAL + IFNULL(Comm,0)) as MaxEinkommen from emps group by dept_id;
+SELECT MIN(MaxEinkommen) AS geringstesHöchsteinkommen FROM (SELECT dept_id, MAX(SAL + IFNULL(COMM,0)) AS MaxEinkommen FROM emps GROUP BY dept_id) AS t; -- 30
+
+-- = 0 prüft, ob wirklich eine Null (0) drinsteht.
+-- IS NULL prüft, ob gar kein Wert eingetragen wurde.
