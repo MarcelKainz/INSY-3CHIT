@@ -81,3 +81,4 @@ SELECT MIN(MaxEinkommen) AS geringstesHöchsteinkommen FROM (SELECT dept_id, MAX
 select MIN(SAL + COMM), MAX(SAL + COMM), AVG(SAL + COMM), COUNT(SAL + COMM) from emps; -- 34
 
 select MIN(SAL), MAX(SAL), AVG(SAL) from emps group by dept_id; -- 35
+
