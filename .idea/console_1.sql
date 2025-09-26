@@ -82,5 +82,8 @@ select MIN(SAL + COMM), MAX(SAL + COMM), AVG(SAL + COMM), COUNT(SAL + COMM) from
 
 select MIN(SAL), MAX(SAL), AVG(SAL) from emps group by dept_id; -- 35
 
+-- Zweiter Zettel fertig 😎😎😎
+
 select min(SAL), max(Sal), AVG(sal) from emps where JOB!='MANAGER' OR JOB != 'PRESIDENT' group by dept_id; -- 36
 
+select AVG(SAL) from emps where COMM != 0 OR COMM != NULL group by JOB -- 37
