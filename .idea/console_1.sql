@@ -77,3 +77,5 @@ SELECT MIN(MaxEinkommen) AS geringstesHöchsteinkommen FROM (SELECT dept_id, MAX
 -- COUNT(*) = alle Zeilen, COUNT(MGR) = nur nicht-NULL, COUNT(DISTINCT MGR) = verschiedene Chefs (ohne NULL). -- 32
 
 -- COUNT() → Anzahl SUM() → Summe AVG() → Durchschnitt MIN() → Minimum MAX() → Maximum -- 33
+
+select MIN(SAL + COMM), MAX(SAL + COMM), AVG(SAL + COMM), COUNT(SAL + COMM) from emps; -- 34
