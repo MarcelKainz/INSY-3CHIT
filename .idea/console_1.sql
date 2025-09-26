@@ -78,7 +78,7 @@ SELECT MIN(MaxEinkommen) AS geringstesHöchsteinkommen FROM (SELECT dept_id, MAX
 
 -- COUNT() → Anzahl SUM() → Summe AVG() → Durchschnitt MIN() → Minimum MAX() → Maximum -- 33
 
-select MIN(SAL + COMM), MAX(SAL + COMM), AVG(SAL + COMM), COUNT(SAL + COMM) from emps; -- 34
+select MIN(SAL + IFNULL(COMM, 0)), MAX(SAL + IFNULL(COMM, 0)), AVG(SAL + IFNULL(COMM, 0)), COUNT(SAL + IFNULL(COMM, 0)) from emps where dept_id = 30; -- 34
 
 select MIN(SAL), MAX(SAL), AVG(SAL) from emps group by dept_id; -- 35
 
@@ -92,6 +92,6 @@ select SUM(SAL +  IFNULL(COMM, 100))*14 from emps group by JOB; -- 38
 
 -- In SQL werden geschachtelte Funktionen bei GROUP BY von innen nach außen über Subqueries ausgewertet. -- 39
 
-select JOB, SAL where SAL > 1500 ORDER BY AVG(SAL); -- 40
+select JOB, SAL where SAL > 1500 group by dept_id ORDER BY AVG(SAL); -- 40
 
-select dept_id from emps where JOB != 'CLERK'; -- 41
+select dept_id from emps where JOB != 'CLERK' group by dept_id; -- 41
