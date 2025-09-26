@@ -72,4 +72,7 @@ select dept_id, Max(SAL + IFNULL(Comm,0)) as MaxEinkommen from emps group by dep
 SELECT MIN(MaxEinkommen) AS geringstesHöchsteinkommen FROM (SELECT dept_id, MAX(SAL + IFNULL(COMM,0)) AS MaxEinkommen FROM emps GROUP BY dept_id) AS t; -- 30
 
 -- = 0 prüft, ob wirklich eine Null (0) drinsteht.
--- IS NULL prüft, ob gar kein Wert eingetragen wurde.
+-- IS NULL prüft, ob gar kein Wert eingetragen wurde. -- 31
+
+-- COUNT(*) = alle Zeilen, COUNT(MGR) = nur nicht-NULL, COUNT(DISTINCT MGR) = verschiedene Chefs (ohne NULL). -- 32
+
