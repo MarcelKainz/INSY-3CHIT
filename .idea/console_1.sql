@@ -95,3 +95,5 @@ select SUM(SAL +  IFNULL(COMM, 100))*14 from emps group by JOB; -- 38
 select JOB, SAL where SAL > 1500 group by dept_id ORDER BY AVG(SAL); -- 40
 
 select dept_id from emps where JOB != 'CLERK' group by dept_id; -- 41
+
+-- WHERE filtert Zeilen vor der Gruppierung, HAVING filtert Gruppen nach der Aggregation. -- 42
