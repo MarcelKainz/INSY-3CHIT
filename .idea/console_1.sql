@@ -91,3 +91,5 @@ select AVG(SAL) from emps where COMM != 0 OR COMM != NULL group by JOB; -- 37
 select SUM(SAL +  IFNULL(COMM, 100))*14 from emps group by JOB; -- 38
 
 -- In SQL werden geschachtelte Funktionen bei GROUP BY von innen nach außen über Subqueries ausgewertet. -- 39
+
+select JOB, SAL where SAL > 1500 ORDER BY AVG(SAL) -- 40
