@@ -144,3 +144,5 @@ select e.dept_id, e.ename, e.sal from emps e where e.sal > (select avg(SAL) from
 
 select d.dname, d.location, count(e.id) as MITARBEITER from depts d join emps e on d.dept_id = e.dept_id group by d.dname, d.location having count(e.id) > 4; -- 63
 
+select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) from emps where dept_id = e.dept_id)) > 0.1 * (SELECT avg(sal) from emps where dept_id = e.dept_id); -- 64
+
