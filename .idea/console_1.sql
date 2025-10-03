@@ -127,3 +127,7 @@ select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.
 select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOCATION ='CHICAGO' and e.JOB = (SELECT JOB from emps where ename = 'ALLEN') order by e.ename; -- 55
 
 select job, avg(SAL) as AVGSAL from emps group by JOB HAVING AVG(SAL) > (SELECT AVG(SAL) from emps where JOB = 'SALESMAN'); -- 56
+
+select ename, job from emps where dept_id = 10 and JOB IN(SELECT DISTINCT JOB from emps where dept_id = 30); -- 57
+
+-- Dritter Zettel fertig 😎😎😎
