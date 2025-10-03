@@ -111,3 +111,5 @@ select ename, sal from emps where SAL > (Select SAL from emps where ename = 'JON
 select e.EName as Employee, e.SAL as EMP_SALARY, m.Ename as Manager, m.SAL as ManagerSalary from emps e join emps m on e.ID = M.ID where e.SAL > m.SAL -- 47
 
 select ename, sal from emps where SAL < 0.3 * (SELECT SAL from emps where JOB = 'PRESIDENT'); -- 48
+
+select d.dept_ID, d.name from depts d left join emps e on D.dept_id = e.dept_id where e.ID IS NULL; -- 49
