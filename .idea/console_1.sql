@@ -136,3 +136,5 @@ select ename, job from emps where dept_id = 10 and JOB NOT IN (SELECT DISTINCT J
 
 select ename, job from emps where JOB IN (SELECT DISTINCT JOB from emps where dept_id = (SELECT DEPT_id from depts where dname = 'SALES')); -- 59
 
+select e1.dept_id, e1.ename, e1.hiredate from empts e1 where e1.hiredate = (select max(e2.hiredate) from emps e2 where e1.dept_id = e2.dept_id) order by e1.dept_id; -- 60
+
