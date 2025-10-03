@@ -131,3 +131,6 @@ select job, avg(SAL) as AVGSAL from emps group by JOB HAVING AVG(SAL) > (SELECT 
 select ename, job from emps where dept_id = 10 and JOB IN(SELECT DISTINCT JOB from emps where dept_id = 30); -- 57
 
 -- Dritter Zettel fertig 😎😎😎
+
+select ename, job from emps where dept_id = 10 and JOB NOT IN (SELECT DISTINCT JOB FROM EMPS where dept_id = 30); -- 58
+
