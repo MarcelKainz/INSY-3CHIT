@@ -122,3 +122,5 @@ select ename from emps order by LENGHT(ename) DESC LIMIT 1; -- 52
 
 select count(*) from emps e join dept d ON e.dept_id = d.dept_id where d.LOCATION = 'NEW YORK'; -- 53
 
+select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOCATION = 'NEW YORK'; -- 54
+
