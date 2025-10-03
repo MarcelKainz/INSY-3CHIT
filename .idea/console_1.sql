@@ -138,3 +138,5 @@ select ename, job from emps where JOB IN (SELECT DISTINCT JOB from emps where de
 
 select e1.dept_id, e1.ename, e1.hiredate from empts e1 where e1.hiredate = (select max(e2.hiredate) from emps e2 where e1.dept_id = e2.dept_id) order by e1.dept_id; -- 60
 
+select distinct d.dept_id, d.dname from depts d join emps e on d.dept_id = e.dept_id; -- 61
+
