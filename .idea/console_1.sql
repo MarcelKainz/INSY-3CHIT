@@ -108,10 +108,13 @@ select Job, AVG(SAL) as AverageSalary from emps group by job having AVG(SAL) > 1
 
 select ename, sal from emps where SAL > (Select SAL from emps where ename = 'JONES'); -- 46
 
-select e.EName as Employee, e.SAL as EMP_SALARY, m.Ename as Manager, m.SAL as ManagerSalary from emps e join emps m on e.ID = M.ID where e.SAL > m.SAL -- 47
+select e.EName as Employee, e.SAL as EMP_SALARY, m.Ename as Manager, m.SAL as ManagerSalary from emps e join emps m on e.ID = M.ID where e.SAL > m.SAL; -- 47
 
 select ename, sal from emps where SAL < 0.3 * (SELECT SAL from emps where JOB = 'PRESIDENT'); -- 48
 
 select d.dept_ID, d.name from depts d left join emps e on D.dept_id = e.dept_id where e.ID IS NULL; -- 49
 
 select ename, job from emps where JOB = (SELECT JOB FROM EMPS WHERE ENAME= 'JONES'); -- 50
+
+select ename, job, sal from emps where SAL = (SELECT MAX(SAL) from emps); -- 51
+
