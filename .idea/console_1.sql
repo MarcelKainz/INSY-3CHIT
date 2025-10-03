@@ -118,3 +118,4 @@ select ename, job from emps where JOB = (SELECT JOB FROM EMPS WHERE ENAME= 'JONE
 
 select ename, job, sal from emps where SAL = (SELECT MAX(SAL) from emps); -- 51
 
+select ename from emps order by LENGHT(ename) DESC LIMIT 1; -- 52
