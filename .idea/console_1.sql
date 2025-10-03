@@ -102,3 +102,6 @@ select Job, AVG(SAL) as AverageSalary from emps group by job having AVG(SAL) > 1
 
 -- Where filtert vor der Gruppierung (auf Zeilenebene)
 -- Having filtert nach der Gruppierung (auf Aggregat-Ebene) -- 44
+
+-- Where ist effizienter, weil unnötige Daten vor der Gruppierung ausgeschlossen werden
+-- Having wird meist für Bedinungen auf Aggregatfunktionen verwendet. -- 45
