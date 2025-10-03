@@ -106,4 +106,6 @@ select Job, AVG(SAL) as AverageSalary from emps group by job having AVG(SAL) > 1
 -- Where ist effizienter, weil unnötige Daten vor der Gruppierung ausgeschlossen werden
 -- Having wird meist für Bedinungen auf Aggregatfunktionen verwendet. -- 45
 
-select ename, sal from emps where SAL > (Select SAL from emps where ename = 'JONES');
+select ename, sal from emps where SAL > (Select SAL from emps where ename = 'JONES'); -- 46
+
+select e.EName as Employee, e.SAL as EMP_SALARY, m.Ename as Manager, m.SAL as ManagerSalary from emps e join emps m on e.ID = M.ID where e.SAL > m.SAL -- 47
