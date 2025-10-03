@@ -125,3 +125,5 @@ select count(*) from emps e join dept d ON e.dept_id = d.dept_id where d.LOCATIO
 select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOCATION = 'NEW YORK'; -- 54
 
 select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOCATION ='CHICAGO' and e.JOB = (SELECT JOB from emps where ename = 'ALLEN') order by e.ename; -- 55
+
+select job, avg(SAL) as AVGSAL from emps group by JOB HAVING AVG(SAL) > (SELECT AVG(SAL) from emps where JOB = 'SALESMAN'); -- 56
