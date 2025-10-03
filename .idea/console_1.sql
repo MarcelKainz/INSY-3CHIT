@@ -142,3 +142,5 @@ select distinct d.dept_id, d.dname from depts d join emps e on d.dept_id = e.dep
 
 select e.dept_id, e.ename, e.sal from emps e where e.sal > (select avg(SAL) from emps where dept_id = e.dept_id); -- 62
 
+select d.dname, d.location, count(e.id) as MITARBEITER from depts d join emps e on d.dept_id = e.dept_id group by d.dname, d.location having count(e.id) > 4; -- 63
+
