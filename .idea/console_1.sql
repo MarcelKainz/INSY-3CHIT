@@ -134,3 +134,5 @@ select ename, job from emps where dept_id = 10 and JOB IN(SELECT DISTINCT JOB fr
 
 select ename, job from emps where dept_id = 10 and JOB NOT IN (SELECT DISTINCT JOB FROM EMPS where dept_id = 30); -- 58
 
+select ename, job from emps where JOB IN (SELECT DISTINCT JOB from emps where dept_id = (SELECT DEPT_id from depts where dname = 'SALES')); -- 59
+
