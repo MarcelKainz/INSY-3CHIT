@@ -100,3 +100,5 @@ select dept_id from emps where JOB != 'CLERK' group by dept_id; -- 41
 
 select Job, AVG(SAL) as AverageSalary from emps group by job having AVG(SAL) > 1500 order by Job; -- 43
 
+-- Where filtert vor der Gruppierung (auf Zeilenebene)
+-- Having filtert nach der Gruppierung (auf Aggregat-Ebene) -- 44
