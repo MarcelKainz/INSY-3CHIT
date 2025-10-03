@@ -140,3 +140,5 @@ select e1.dept_id, e1.ename, e1.hiredate from empts e1 where e1.hiredate = (sele
 
 select distinct d.dept_id, d.dname from depts d join emps e on d.dept_id = e.dept_id; -- 61
 
+select e.dept_id, e.ename, e.sal from emps e where e.sal > (select avg(SAL) from emps where dept_id = e.dept_id); -- 62
+
