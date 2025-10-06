@@ -149,3 +149,5 @@ select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) 
 select e.ename, e.job, d.dname, d.location from emps e join depts d on e.dept_id = d.dept_id where d.location = 'Chicago'; -- 65
 
 select e.job, e.dept_id, e.sal, e.ename from emps e where (e.job, e.sal) in (select job, max(sal) from emps group by job); -- 66
+
+select e.ename, e.job, e.sal from emps e where e.sal > 1.1 * (select avg(sal) from emps where job = e.job); -- 67
