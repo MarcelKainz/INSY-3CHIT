@@ -157,3 +157,6 @@ select e1.ename as Person, e1.sal as Gehalt, e2.ename as VergleichPerson, e2.sal
 create view emp10 as select * from emps where dept_id = 10;
 create view emp20 as select * from emps where dept_id = 20;
 create view emp30 as select * from emps where dept_id = 30;
+
+create view fil20 as select ename, ID, job from emps where dept_id = 20;
+select * from fil20 where job = 'Clerk'; -- 70
