@@ -166,3 +166,5 @@ create view Gehalt_Filiale as select dept_id, max(SAL) as maxgehalt, min(sal) as
 create view VergleichGehalt as select e.ename, e.job, e.sal, e.dept_id, g.avggehalt, round(((e.sal - g.avggehalt)/h.avggehalt) * 100, 2) as AbweichungProzent from emps e join gehaltfiliale g on e.dept_id = g.dept_id order by AbweichungProzent; -- 72
 
 create view Zahlung as select e.id, e.job, e.ename, e.sal, (e.sal * 12 + IFNULL(e.comm, 0)) as Jahreseinkommen, d.dname, d.location from emps e join depts d on e.dept_id = d.dept_id; -- 73
+
+select dname, sum(Jahreseinkommen) as Gesamtzahlung from Zahlung group by dname; -- 74
