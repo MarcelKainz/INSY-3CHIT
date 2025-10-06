@@ -14,7 +14,7 @@ select * from emps where HIREDATE = '03.12.1981'; -- 6
 
 select ename, Sal where SAL < 1250 AND SAL > 1600; -- 7
 
-select * from emps where JOB != MANAGER OR JOB != President; -- 8
+select * from emps where JOB != 'MANAGER' OR JOB != 'President'; -- 8
 
 select * from emps where ENAME LIKE '__A%'; -- 9
 
@@ -22,7 +22,7 @@ select ID, ENAME, JOB from emps where COMM IS NOT NULL AND COMM != 0; -- 10
 
 SELECT ID, ENAME, JOB, COMM FROM emps WHERE COMM IS NOT NULL ORDER BY COMM DESC; -- 11
 
-SELECT ID, ENAME, JOB, dept_id, HIREDATE FROM emps WHERE JOB NOT IN ('Manager', 'President') ORDER BY dept_id ASC, hire_date DESC; -- 12
+SELECT ID, ENAME, JOB, dept_id, HIREDATE FROM emps WHERE JOB NOT IN ('Manager', 'President') ORDER BY dept_id ASC, hiredate DESC; -- 12
 
 SELECT ENAME FROM emps WHERE LENGTH(ENAME) > 6; -- 13
 
@@ -54,7 +54,7 @@ SELECT
 FROM emps
 WHERE dept_id = 30; -- 22
 
-select COUNT(DISTINCT JOB) where JOB != 'President' AND JOB != 'MANAGER'; -- 23
+select COUNT(DISTINCT JOB) from emps where JOB != 'President' AND JOB != 'MANAGER'; -- 23
 
 select count(*)/count(distinct dept_id) from emps; -- 24
 
@@ -92,9 +92,9 @@ select SUM(SAL +  IFNULL(COMM, 100))*14 from emps group by JOB; -- 38
 
 -- In SQL werden geschachtelte Funktionen bei GROUP BY von innen nach außen über Subqueries ausgewertet. -- 39
 
-select JOB, SAL where SAL > 1500 group by dept_id ORDER BY AVG(SAL); -- 40
+select JOB, SAL from emps where SAL > 1500 group by dept_id ORDER BY AVG(SAL); -- 40
 
-select dept_id from emps where JOB != 'CLERK' group by dept_id; -- 41
+select deptno from emps where JOB != 'CLERK' group by deptno; -- 41
 
 -- WHERE filtert Zeilen vor der Gruppierung, HAVING filtert Gruppen nach der Aggregation. -- 42
 
@@ -112,19 +112,19 @@ select e.EName as Employee, e.SAL as EMP_SALARY, m.Ename as Manager, m.SAL as Ma
 
 select ename, sal from emps where SAL < 0.3 * (SELECT SAL from emps where JOB = 'PRESIDENT'); -- 48
 
-select d.dept_ID, d.name from depts d left join emps e on D.dept_id = e.dept_id where e.ID IS NULL; -- 49
+select d.deptno, d.dname from depts d left join emps e on D.deptno = e.dept_id where e.ID IS NULL; -- 49
 
-select ename, job from emps where JOB = (SELECT JOB FROM EMPS WHERE ENAME= 'JONES'); -- 50
+select ename, job from emps where JOB = (SELECT JOB FROM emps WHERE ENAME= 'JONES'); -- 50
 
 select ename, job, sal from emps where SAL = (SELECT MAX(SAL) from emps); -- 51
 
 select ename from emps order by LENGHT(ename) DESC LIMIT 1; -- 52
 
-select count(*) from emps e join dept d ON e.dept_id = d.dept_id where d.LOCATION = 'NEW YORK'; -- 53
+select count(*) from emps e join dept d ON e.dept_id = d.dept_id where d.LOC = 'NEW YORK'; -- 53
 
-select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOCATION = 'NEW YORK'; -- 54
+select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOC = 'NEW YORK'; -- 54
 
-select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOCATION ='CHICAGO' and e.JOB = (SELECT JOB from emps where ename = 'ALLEN') order by e.ename; -- 55
+select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOC ='CHICAGO' and e.JOB = (SELECT JOB from emps where ename = 'ALLEN') order by e.ename; -- 55
 
 select job, avg(SAL) as AVGSAL from emps group by JOB HAVING AVG(SAL) > (SELECT AVG(SAL) from emps where JOB = 'SALESMAN'); -- 56
 
@@ -142,11 +142,11 @@ select distinct d.dept_id, d.dname from depts d join emps e on d.dept_id = e.dep
 
 select e.dept_id, e.ename, e.sal from emps e where e.sal > (select avg(SAL) from emps where dept_id = e.dept_id); -- 62
 
-select d.dname, d.location, count(e.id) as MITARBEITER from depts d join emps e on d.dept_id = e.dept_id group by d.dname, d.location having count(e.id) > 4; -- 63
+select d.dname, d.LOC, count(e.id) as MITARBEITER from depts d join emps e on d.dept_id = e.dept_id group by d.dname, d.LOC having count(e.id) > 4; -- 63
 
 select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) from emps where dept_id = e.dept_id)) > 0.1 * (SELECT avg(sal) from emps where dept_id = e.dept_id); -- 64
 
-select e.ename, e.job, d.dname, d.location from emps e join depts d on e.dept_id = d.dept_id where d.location = 'Chicago'; -- 65
+select e.ename, e.job, d.dname, d.LOC from emps e join depts d on e.dept_id = d.dept_id where d.LOC = 'Chicago'; -- 65
 
 select e.job, e.dept_id, e.sal, e.ename from emps e where (e.job, e.sal) in (select job, max(sal) from emps group by job); -- 66
 
@@ -165,6 +165,6 @@ create view Gehalt_Filiale as select dept_id, max(SAL) as maxgehalt, min(sal) as
 
 create view VergleichGehalt as select e.ename, e.job, e.sal, e.dept_id, g.avggehalt, round(((e.sal - g.avggehalt)/h.avggehalt) * 100, 2) as AbweichungProzent from emps e join gehaltfiliale g on e.dept_id = g.dept_id order by AbweichungProzent; -- 72
 
-create view Zahlung as select e.id, e.job, e.ename, e.sal, (e.sal * 12 + IFNULL(e.comm, 0)) as Jahreseinkommen, d.dname, d.location from emps e join depts d on e.dept_id = d.dept_id; -- 73
+create view Zahlung as select e.id, e.job, e.ename, e.sal, (e.sal * 12 + IFNULL(e.comm, 0)) as Jahreseinkommen, d.dname, d.LOC from emps e join depts d on e.dept_id = d.dept_id; -- 73
 
 select dname, sum(Jahreseinkommen) as Gesamtzahlung from Zahlung group by dname; -- 74
