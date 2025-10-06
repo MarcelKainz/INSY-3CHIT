@@ -146,3 +146,4 @@ select d.dname, d.location, count(e.id) as MITARBEITER from depts d join emps e 
 
 select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) from emps where dept_id = e.dept_id)) > 0.1 * (SELECT avg(sal) from emps where dept_id = e.dept_id); -- 64
 
+select e.ename, e.job, d.dname, d.location from emps e join depts d on e.dept_id = d.dept_id where d.location = 'Chicago'; -- 65
