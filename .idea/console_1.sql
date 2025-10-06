@@ -162,3 +162,6 @@ create view fil20 as select ename, ID, job from emps where dept_id = 20;
 select * from fil20 where job = 'Clerk'; -- 70
 
 create view Gehalt_Filiale as select dept_id, max(SAL) as maxgehalt, min(sal) as mingehalt, avg(sal) as avggehalt from emps group by dept_id; -- 71
+
+create view VergleichGehalt as select e.ename, e.job, e.sal, e.dept_id, g.avggehalt, round(((e.sal - g.avggehalt)/h.avggehalt) * 100, 2) as AbweichungProzent from emps e join gehaltfiliale g on e.dept_id = g.dept_id order by AbweichungProzent; -- 72
+
