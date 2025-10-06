@@ -160,3 +160,5 @@ create view emp30 as select * from emps where dept_id = 30;
 
 create view fil20 as select ename, ID, job from emps where dept_id = 20;
 select * from fil20 where job = 'Clerk'; -- 70
+
+create view Gehalt_Filiale as select dept_id, max(SAL) as maxgehalt, min(sal) as mingehalt, avg(sal) as avggehalt from emps group by dept_id; -- 71
