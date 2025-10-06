@@ -151,3 +151,5 @@ select e.ename, e.job, d.dname, d.location from emps e join depts d on e.dept_id
 select e.job, e.dept_id, e.sal, e.ename from emps e where (e.job, e.sal) in (select job, max(sal) from emps group by job); -- 66
 
 select e.ename, e.job, e.sal from emps e where e.sal > 1.1 * (select avg(sal) from emps where job = e.job); -- 67
+
+select e1.ename as Person, e1.sal as Gehalt, e2.ename as VergleichPerson, e2.sal as Vergleichsgehalt, (e2.sal - e1.sal) / e1.sal * 100 as UnterschiedProzent from emps e1 join emps e2 on e2.sal >= 1.5 * e1.sal; -- 68
