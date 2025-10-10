@@ -120,11 +120,11 @@ select ename, job, sal from emps where SAL = (SELECT MAX(SAL) from emps); -- 51
 
 select ename from emps order by LENGHT(ename) DESC LIMIT 1; -- 52
 
-select count(*) from emps e join dept d ON e.dept_id = d.dept_id where d.LOC = 'NEW YORK'; -- 53
+select count(*) from emps e join depts d ON e.dept_id = d.deptno where d.LOC = 'NEW YORK'; -- 53
 
-select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOC = 'NEW YORK'; -- 54
+select e.ename, e.job from emps e join depts d on e.dept_id = d.deptno where d.LOC = 'NEW YORK'; -- 54
 
-select e.ename, e.job from emps e join depts d on e.dept_id = d.dept_id where d.LOC ='CHICAGO' and e.JOB = (SELECT JOB from emps where ename = 'ALLEN') order by e.ename; -- 55
+select e.ename, e.job from emps e join depts d on e.dept_id = d.deptno where d.LOC ='CHICAGO' and e.JOB = (SELECT JOB from emps where ename = 'ALLEN') order by e.ename; -- 55
 
 select job, avg(SAL) as AVGSAL from emps group by JOB HAVING AVG(SAL) > (SELECT AVG(SAL) from emps where JOB = 'SALESMAN'); -- 56
 
@@ -136,17 +136,17 @@ select ename, job from emps where dept_id = 10 and JOB NOT IN (SELECT DISTINCT J
 
 select ename, job from emps where JOB IN (SELECT DISTINCT JOB from emps where dept_id = (SELECT DEPT_id from depts where dname = 'SALES')); -- 59
 
-select e1.dept_id, e1.ename, e1.hiredate from empts e1 where e1.hiredate = (select max(e2.hiredate) from emps e2 where e1.dept_id = e2.dept_id) order by e1.dept_id; -- 60
+select e1.dept_id, e1.ename, e1.hiredate from emps e1 where e1.hiredate = (select max(e2.hiredate) from emps e2 where e1.dept_id = e2.dept_id) order by e1.dept_id; -- 60
 
-select distinct d.dept_id, d.dname from depts d join emps e on d.dept_id = e.dept_id; -- 61
+select distinct d.deptno, d.dname from depts d join emps e on d.deptno = e.dept_id; -- 61
 
 select e.dept_id, e.ename, e.sal from emps e where e.sal > (select avg(SAL) from emps where dept_id = e.dept_id); -- 62
 
-select d.dname, d.LOC, count(e.id) as MITARBEITER from depts d join emps e on d.dept_id = e.dept_id group by d.dname, d.LOC having count(e.id) > 4; -- 63
+select d.dname, d.LOC, count(e.id) as MITARBEITER from depts d join emps e on d.deptno = e.dept_id group by d.dname, d.LOC having count(e.id) > 4; -- 63
 
 select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) from emps where dept_id = e.dept_id)) > 0.1 * (SELECT avg(sal) from emps where dept_id = e.dept_id); -- 64
 
-select e.ename, e.job, d.dname, d.LOC from emps e join depts d on e.dept_id = d.dept_id where d.LOC = 'Chicago'; -- 65
+select e.ename, e.job, d.dname, d.LOC from emps e join depts d on e.dept_id = d.deptno where d.LOC = 'Chicago'; -- 65
 
 select e.job, e.dept_id, e.sal, e.ename from emps e where (e.job, e.sal) in (select job, max(sal) from emps group by job); -- 66
 
@@ -163,8 +163,11 @@ select * from fil20 where job = 'Clerk'; -- 70
 
 create view Gehalt_Filiale as select dept_id, max(SAL) as maxgehalt, min(sal) as mingehalt, avg(sal) as avggehalt from emps group by dept_id; -- 71
 
-create view VergleichGehalt as select e.ename, e.job, e.sal, e.dept_id, g.avggehalt, round(((e.sal - g.avggehalt)/h.avggehalt) * 100, 2) as AbweichungProzent from emps e join gehaltfiliale g on e.dept_id = g.dept_id order by AbweichungProzent; -- 72
+create view VergleichGehalt as select e.ename, e.job, e.sal, e.dept_id, g.avggehalt, round(((e.sal - g.avggehalt)/h.avggehalt) * 100, 2) as AbweichungProzent from emps e join Gehalt_Filiale g on e.dept_id = g.dept_id order by AbweichungProzent; -- 72
 
-create view Zahlung as select e.id, e.job, e.ename, e.sal, (e.sal * 12 + IFNULL(e.comm, 0)) as Jahreseinkommen, d.dname, d.LOC from emps e join depts d on e.dept_id = d.dept_id; -- 73
+create view Zahlung as select e.id, e.job, e.ename, e.sal, (e.sal * 12 + IFNULL(e.comm, 0)) as Jahreseinkommen, d.dname, d.LOC from emps e join depts d on e.dept_id = d.deptno; -- 73
 
 select dname, sum(Jahreseinkommen) as Gesamtzahlung from Zahlung group by dname; -- 74
+
+-- Letzter Zettl fertig 😎😎😎
+-- Alle Übungen korrekt 😎😎😎
