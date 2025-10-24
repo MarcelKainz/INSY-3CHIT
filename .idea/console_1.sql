@@ -140,9 +140,9 @@ select e1.dept_id, e1.ename, e1.hiredate from emps e1 where e1.hiredate = (selec
 
 select distinct d.deptno, d.dname from depts d join emps e on d.deptno = e.dept_id; -- 61
 
-select e.dept_id, e.ename, e.sal from emps e where e.sal > (select avg(SAL) from emps where dept_id = e.dept_id); -- 62
+SELECT e.dept_id, e.ename, e.sal FROM emps e JOIN (SELECT dept_id, AVG(sal) AS avg_sal FROM emps GROUP BY dept_id) avg_table ON e.dept_id = avg_table.dept_id WHERE e.sal > avg_table.avg_sal; -- 62
 
-select d.dname, d.LOC, count(e.id) as MITARBEITER from depts d join emps e on d.deptno = e.dept_id group by d.dname, d.LOC having count(e.id) > 4; -- 63
+SELECT d.dname, d.loc, COUNT(e.id) AS mitarbeiter FROM depts d JOIN emps e ON d.deptno = e.dept_id GROUP BY d.dname, d.loc HAVING COUNT(e.id) > 4; -- 63
 
 select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) from emps where dept_id = e.dept_id)) > 0.1 * (SELECT avg(sal) from emps where dept_id = e.dept_id); -- 64
 
