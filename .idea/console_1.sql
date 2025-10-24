@@ -6,7 +6,7 @@ select ename, job, HIREDATE from emps where dept_id = 10; -- 2
 
 select ename, job, SAL from emps; -- 3
 
-SELECT * FROM emps WHERE dept_id != 10; -- 4
+SELECT * FROM emps WHERE dept_id <> 10; -- 4
 
 select * from emps where COMM > SAL; -- 5
 
@@ -14,11 +14,11 @@ select * from emps where HIREDATE = '03.12.1981'; -- 6
 
 select ename, Sal where SAL < 1250 AND SAL > 1600; -- 7
 
-select * from emps where JOB != 'MANAGER' OR JOB != 'President'; -- 8
+select * from emps where JOB <> 'MANAGER' OR JOB <> 'President'; -- 8
 
 select * from emps where ENAME LIKE '__A%'; -- 9
 
-select ID, ENAME, JOB from emps where COMM IS NOT NULL AND COMM != 0; -- 10
+select ID, ENAME, JOB from emps where COMM IS NOT NULL AND COMM <> 0; -- 10
 
 SELECT ID, ENAME, JOB, COMM FROM emps WHERE COMM IS NOT NULL ORDER BY COMM DESC; -- 11
 
@@ -54,7 +54,7 @@ SELECT
 FROM emps
 WHERE dept_id = 30; -- 22
 
-select COUNT(DISTINCT JOB) from emps where JOB != 'President' AND JOB != 'MANAGER'; -- 23
+select COUNT(DISTINCT JOB) from emps where JOB <> 'President' AND JOB <> 'MANAGER'; -- 23
 
 select count(*)/count(distinct dept_id) from emps; -- 24
 
@@ -84,9 +84,9 @@ select MIN(SAL), MAX(SAL), AVG(SAL) from emps group by dept_id; -- 35
 
 -- Zweiter Zettel fertig 😎😎😎
 
-select min(SAL), max(Sal), AVG(sal) from emps where JOB!='MANAGER' OR JOB != 'PRESIDENT' group by dept_id; -- 36
+select min(SAL), max(Sal), AVG(sal) from emps where JOB<>'MANAGER' OR JOB <> 'PRESIDENT' group by dept_id; -- 36
 
-select AVG(SAL) from emps where COMM != 0 OR COMM != NULL group by JOB; -- 37
+select AVG(SAL) from emps where COMM <> 0 OR COMM <> NULL group by JOB; -- 37
 
 select SUM(SAL +  IFNULL(COMM, 100))*14 from emps group by JOB; -- 38
 
@@ -94,7 +94,7 @@ select SUM(SAL +  IFNULL(COMM, 100))*14 from emps group by JOB; -- 38
 
 select JOB, SAL from emps where SAL > 1500 group by dept_id ORDER BY AVG(SAL); -- 40
 
-select deptno from emps where JOB != 'CLERK' group by deptno; -- 41
+select deptno from emps where JOB <> 'CLERK' group by deptno; -- 41
 
 -- WHERE filtert Zeilen vor der Gruppierung, HAVING filtert Gruppen nach der Aggregation. -- 42
 
