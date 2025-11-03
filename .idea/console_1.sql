@@ -169,5 +169,9 @@ create view Zahlung as select e.id, e.job, e.ename, e.sal, (e.sal * 12 + IFNULL(
 
 select dname, sum(Jahreseinkommen) as Gesamtzahlung from Zahlung group by dname; -- 74
 
+CREATE TABLE emp AS SELECT * FROM emps;
+
+SELECT e.id, e.ename, e.job, e.sal, e.comm, e.hiredate, d.dname, d.loc FROM emps e JOIN depts d ON e.dept_id = d.deptno; -- 75
+
 -- Letzter Zettl fertig 😎😎😎
 -- Alle Übungen korrekt 😎😎😎
