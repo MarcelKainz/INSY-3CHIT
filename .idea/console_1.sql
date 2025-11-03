@@ -136,7 +136,7 @@ select ename, job from emps where dept_id = 10 and JOB NOT IN (SELECT DISTINCT J
 
 select ename, job from emps where JOB IN (SELECT DISTINCT JOB from emps where dept_id = (SELECT DEPT_id from depts where dname = 'SALES')); -- 59
 
-select e1.dept_id, e1.ename, e1.hiredate from emps e1 where e1.hiredate = (select max(e2.hiredate) from emps e2 where e1.dept_id = e2.dept_id) order by e1.dept_id; -- 60
+SELECT e.dept_id,e.ename,e.hiredate FROM emps e JOIN (SELECT dept_id,MAX(hiredate) AS max_hire FROM emps GROUP BY dept_id) h ON e.dept_id=h.dept_id AND e.hiredate=h.max_hire ORDER BY e.dept_id; -- 60
 
 select distinct d.deptno, d.dname from depts d join emps e on d.deptno = e.dept_id; -- 61
 
@@ -144,13 +144,13 @@ SELECT e.dept_id, e.ename, e.sal FROM emps e JOIN (SELECT dept_id, AVG(sal) AS a
 
 SELECT d.dname, d.loc, COUNT(e.id) AS mitarbeiter FROM depts d JOIN emps e ON d.deptno = e.dept_id GROUP BY d.dname, d.loc HAVING COUNT(e.id) > 4; -- 63
 
-select e.ename, e.sal, e.dept_id from emps e where abs(e.sal - (select avg(sal) from emps where dept_id = e.dept_id)) > 0.1 * (SELECT avg(sal) from emps where dept_id = e.dept_id); -- 64
+WITH avg_per_dept AS (SELECT dept_id,AVG(sal) AS avg_sal FROM emps GROUP BY dept_id) SELECT e.ename,e.sal,e.dept_id FROM emps e JOIN avg_per_dept a ON e.dept_id=a.dept_id WHERE ABS(e.sal-a.avg_sal)>0.1*a.avg_sal; -- 64
 
 select e.ename, e.job, d.dname, d.LOC from emps e join depts d on e.dept_id = d.deptno where d.LOC = 'Chicago'; -- 65
 
 select e.job, e.dept_id, e.sal, e.ename from emps e where (e.job, e.sal) in (select job, max(sal) from emps group by job); -- 66
 
-select e.ename, e.job, e.sal from emps e where e.sal > 1.1 * (select avg(sal) from emps where job = e.job); -- 67
+WITH avg_per_job AS (SELECT job,AVG(sal) AS avg_sal FROM emps GROUP BY job) SELECT e.ename,e.job,e.sal FROM emps e JOIN avg_per_job a ON e.job=a.job WHERE e.sal>1.1*a.avg_sal; -- 67
 
 select e1.ename as Person, e1.sal as Gehalt, e2.ename as VergleichPerson, e2.sal as Vergleichsgehalt, (e2.sal - e1.sal) / e1.sal * 100 as UnterschiedProzent from emps e1 join emps e2 on e2.sal >= 1.5 * e1.sal; -- 68
 
