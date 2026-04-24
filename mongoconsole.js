@@ -100,3 +100,131 @@ use htlzwettl;
 
     //13
     db.emps.find({ $expr: { $eq: [{ $strLenCP: "$ENAME" }, 6] } }, { ENAME: 1 });
+
+
+
+    //14
+    db.emps.aggregate([
+        { $match: { dept_id: 30 } },
+        { $project: {_id:0, "Mitarbeiter - Position": { $concat: ["$ENAME", " - ", "$JOB"] } } }
+        ]);
+
+
+    //15
+    db.emps.aggregate([
+        {
+            $project: {
+                SAL_COMM_SUM: { $add: ["$SAL", "$COMM"] }
+                }
+            }
+        ]);
+
+    //16
+    db.emps.aggregate([
+        {
+            $project: {
+                Name: "$ENAME",
+                Monthly: "$SAL",
+                Daily: { $divide: ["$SAL", 22] },
+                Hourly: { $divide: ["$SAL", { $multiply: [22, 8] }] }
+                }
+            }
+        ]);
+
+    //17
+    db.emps.aggregate([
+        {
+            $group: {
+                _id: null,
+                totalSalary: { $sum: "$SAL" }
+                }
+            }
+        ]);
+
+    //18
+    db.emps.aggregate([
+        {
+            $addFields:
+            {
+                commFixed: { $ifNull: ["$comm", 250] }
+            }
+        },
+        {
+            $group:
+            {
+                _id: null,
+                durchschnittliche_pr mie: { $avg: "$commFixed" }
+            }
+        }
+    ])
+
+    select * from emps;
+    select count(id) from emps;
+    select SUM(COMM + IFNULL(COMM, 250))/count(*) from emps;
+
+db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
+    {
+        $group: {
+            _id: {"JOB": "JOB"},
+            durchschnittliche_praemie: {
+                $avg: {
+                    $add: [
+                        "$COMM",
+                        { $ifNull: ["$COMM", 250] }
+                    ]
+                }
+             }
+            }
+        }
+    ])
+
+    //19
+    db.emps.aggregate([
+        { $match: { dept_id: 30 } },
+        {
+            $project: {
+                "CountOfSal": { $cond: { if: { $ne: ["$sal", null] }, then: 1, else: 0 } },
+                "CountOfComm": { $cond: { if: { $ne: ["$comm", null] }, then: 1, else: 0 } }
+                }
+            },
+        {
+            $group: {
+                _id: null,
+                "CountOfSal": { $sum: "$CountOfSal" },
+                "CountOfComm": { $sum: "$CountOfComm" }
+                }
+            }
+        ])
+
+
+    //20
+    db.emps.aggregate([
+        { $group: { _id: "$JOB" } },
+        { $count: "distinctJobCount" }
+        ])
+
+    //21
+    db.emps.aggregate([
+        {
+            $group: {
+                _id: "$parent_id"
+                }
+            }
+        ])
+
+    //21/2
+    db.emps.aggregate([
+        {
+            $match: {
+                parent_id: { $ne: null }
+                }
+            },
+        {
+            $group: {
+                _id: "$parent_id"
+                }
+            },
+        {
+            $count: "distinct_parent_id_count"
+            }
+        ]);
