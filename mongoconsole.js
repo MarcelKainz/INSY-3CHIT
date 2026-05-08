@@ -279,3 +279,20 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                 ]);
 
         // 24
+
+        db.emps.aggregate([
+                {
+                    $group: {
+                        _id: "$dept_id",
+                        employee_count: { $sum: 1 }
+                        }
+                    },
+                {
+                    $group: {
+                        _id: null,
+                        average_employee_count: { $avg: "$employee_count" }
+                        }
+                    }
+                ])
+
+
