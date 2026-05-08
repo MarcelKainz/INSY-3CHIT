@@ -515,3 +515,13 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                     { $match: { clerkCount: { $gte: 2 } } },
                     { $project: { _id: 0, dept_id: "$_id", clerkCount: 1 } }
                     ]);
+
+            // 43
+
+            db.emps.aggregate([
+                { $group: { _id: "$JOB", avgSalary: { $avg: "$SAL" } } },
+                { $match: { avgSalary: { $gt: 1500 } } },
+                { $sort: { _id: 1 } },  // Sortiert nach JOB (alphabetisch aufsteigend)
+                { $project: { _id: 0, JOB: "$_id", avgSalary: 1 } }
+                ]);
+
