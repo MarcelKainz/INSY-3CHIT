@@ -296,3 +296,7 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                 ])
 
 
+        //25
+            db.emps.find({
+                JOB: { $in: ["MANAGER", "PRESIDENT"] }
+                })
