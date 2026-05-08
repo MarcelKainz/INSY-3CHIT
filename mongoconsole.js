@@ -448,3 +448,15 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                         }
                     }
                 ]);
+
+            //35
+                db.emps.aggregate([
+                    {
+                        $group: {
+                            _id: "$dept_id",
+                            MIN_SALARY: { $min: "$SAL" },
+                            MAX_SALARY: { $max: "$SAL" },
+                            AVG_SALARY: { $avg: "$SAL" }
+                            }
+                        }
+                    ])
