@@ -530,3 +530,26 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
             db.emps.find({ SAL: { $gt: db.emps.findOne({ ENAME: "JONES" }).SAL } }).sort({ SAL: -1 });
 
                 db.emps.findOne({ ENAME: "JONES" }).SAL; // 2975
+
+    // 47
+    db.emps.aggregate([
+        {
+            $lookup: {
+                localField: "parent_id",
+                from: "emps",
+                foreignField: "id",
+                as: "manager"
+                }
+            },
+        { $unwind: "$manager" },
+        { $match: { $expr: { $gt: ["$SAL", "$manager.SAL"] } } },
+        {
+            $project: {
+                _id: 0,
+                employee_name: "$ENAME",
+                employee_sal: "$SAL",
+                manager_name: "$manager.ENAME",
+                manager_sal: "$manager.SAL"
+                }
+            }
+        ]);
