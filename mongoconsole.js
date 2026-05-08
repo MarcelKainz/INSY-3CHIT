@@ -460,3 +460,26 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                             }
                         }
                     ])
+
+            // 37
+            db.depts.aggregate([
+                    {
+                        $lookup: {
+                            localField: "DEPTNO",
+                            from: "emps",
+                            foreignField: "dept_id",
+                            as: "mitarbeiter"
+                            }
+                        },
+                    {
+                        $unwind: "$mitarbeiter"
+                        },
+                    {
+                        $project: {
+                            _id: 0,
+                            DEPTNO: 1,
+                            DNAME: 1,
+                            "mitarbeiter.ENAME": 1
+                            }
+                        }
+                    ])
