@@ -416,3 +416,35 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                     }
                 ]);
 
+        //34
+            db.emps.aggregate([
+                {
+                    $match: { dept_id: 30 }
+                    },
+                {
+                    $group: {
+                        _id: null,
+                        MIN_SALARY: { $min: "$SAL" },
+                        MAX_SALARY: { $max: "$SAL" },
+                        AVG_SALARY: { $avg: "$SAL" },
+                        COUNT_SALARY: { $sum: { $cond: [{ $ne: ["$SAL", null] }, 1, 0] } },
+                        MIN_COMM: { $min: "$COMM" },
+                        MAX_COMM: { $max: "$COMM" },
+                        AVG_COMM: { $avg: "$COMM" },
+                        COUNT_COMM: { $sum: { $cond: [{ $ne: ["$COMM", null] }, 1, 0] } }
+                        }
+                    },
+                {
+                    $project: {
+                        _id: 0,
+                        MIN_SALARY: 1,
+                        MAX_SALARY: 1,
+                        AVG_SALARY: 1,
+                        COUNT_SALARY: 1,
+                        MIN_COMM: 1,
+                        MAX_COMM: 1,
+                        AVG_COMM: 1,
+                        COUNT_COMM: 1
+                        }
+                    }
+                ]);
