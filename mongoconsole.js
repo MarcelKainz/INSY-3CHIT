@@ -300,3 +300,24 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
             db.emps.find({
                 JOB: { $in: ["MANAGER", "PRESIDENT"] }
                 })
+
+
+        //26
+            db.emps.aggregate([
+                {
+                    $match: {
+                        $expr: {
+                            $gt: ["$COMM", { $multiply: [0.25, "$SAL"] }]
+                            }
+                        }
+                    },
+                {
+                    $project: {
+                        _id: 0,
+                        ENAME: 1,
+                        JOB: 1,
+                        COMM: 1
+                        }
+                    }
+                ])
+
