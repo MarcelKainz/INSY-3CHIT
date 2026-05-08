@@ -386,3 +386,33 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                         }
                     }
                 ]);
+
+        //30
+            db.emps.aggregate([
+                {
+                    $group: {
+                        _id: "$dept_id",
+                        MAX_INCOME: {
+                            $max: {
+                                $add: [
+                                    "$SAL",
+                                    { $ifNull: ["$COMM", 0] }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                {
+                    $group: {
+                        _id: null,
+                        LOWEST_MAX_INCOME: { $min: "$MAX_INCOME" }
+                        }
+                    },
+                {
+                    $project: {
+                        _id: 0,
+                        LOWEST_MAX_INCOME: 1
+                        }
+                    }
+                ]);
+
