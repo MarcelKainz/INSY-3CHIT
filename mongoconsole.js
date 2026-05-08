@@ -346,3 +346,19 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                     }
                 }
             ])
+
+        //28
+            db.emps.aggregate([
+                {
+                    $group: {
+                        _id: null,
+                        OLDEST_EMPLOYEE_HIRED: { $min: "$HIREDATE" }
+                        }
+                    },
+                {
+                    $project: {
+                        _id: 0,
+                        OLDEST_EMPLOYEE_HIRED: 1
+                        }
+                    }
+                ])
