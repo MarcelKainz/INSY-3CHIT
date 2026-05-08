@@ -228,3 +228,54 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
             $count: "distinct_parent_id_count"
             }
         ]);
+
+    //22
+    db.emps.aggregate([
+            {
+                $match: { dept_id: 30 }
+                },
+            {
+                $group: {
+                    _id: null,
+                    SUM_SALARY: { $sum: "$SAL" },
+                    COUNT_SALARY: { $sum: { $cond: [{ $ne: ["$SAL", null] }, 1, 0] } },
+                    AVG_SALARY: {
+                        $avg: {
+                            $cond: [{ $ne: ["$SAL", null] }, "$SAL", null]
+                            }
+                        },
+                    SUM_COMMISSION: {
+                        $sum: { $ifNull: ["$COMM", 0] }
+                        },
+                    COUNT_COMMISSION: {
+                        $sum: { $cond: [{ $ne: ["$COMM", null] }, 1, 0] }
+                        },
+                    AVG_COMMISSION: {
+                        $avg: { $ifNull: ["$COMM", 0] }
+                        }
+                    }
+                }
+            ]);
+
+        // 23
+        db.emps.aggregate([
+                {
+                    $match: {
+                        JOB: { $nin: ['MANAGER', 'PRESIDENT'] }
+                        }
+                    },
+                {
+                    $group: {
+                        _id: "$dept_id",  // GROUP BY dept_id
+                        UNIQUE_JOBS: { $addToSet: "$JOB" }  // DISTINCT JOB
+                        }
+                    },
+                {
+                    $project: {
+                        dept_id: "$_id",
+                        UNIQUE_JOBS: { $size: "$UNIQUE_JOBS" }  // Z hlt die Anzahl der verschiedenen JOBs
+                        }
+                    }
+                ]);
+
+        // 24
