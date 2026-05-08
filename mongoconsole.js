@@ -525,3 +525,8 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                 { $project: { _id: 0, JOB: "$_id", avgSalary: 1 } }
                 ]);
 
+            // 46
+
+            db.emps.find({ SAL: { $gt: db.emps.findOne({ ENAME: "JONES" }).SAL } }).sort({ SAL: -1 });
+
+                db.emps.findOne({ ENAME: "JONES" }).SAL; // 2975
