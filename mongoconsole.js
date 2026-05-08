@@ -321,3 +321,28 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                     }
                 ])
 
+    //27
+        db.emps.aggregate([
+            {
+                $project: {
+                    totalCompensation: {
+                        $add: [
+                            "$SAL",
+                            { $ifNull: ["$COMM", 0] }
+                            ]
+                        }
+                    }
+                },
+            {
+                $group: {
+                    _id: null,
+                    MIN_TOTAL_COMPENSATION: { $min: "$totalCompensation" }
+                    }
+                },
+            {
+                $project: {
+                    _id: 0,
+                    MIN_TOTAL_COMPENSATION: 1
+                    }
+                }
+            ])
