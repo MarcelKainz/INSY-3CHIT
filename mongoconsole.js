@@ -483,3 +483,26 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                             }
                         }
                     ])
+
+            // 38
+
+                db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
+                    {
+                        $group: {
+                            _id: {"dept_id": "$dept_id"},
+                            "SUM(SAL*12)": {$sum: {$multiply: ["$SAL", 12]}}
+                            }
+                        },
+                    {
+                        $project: {"SUM(SAL*12)": "$SUM(SAL*12)", "_id": 0}
+                        }
+                    ])
+
+            // 40
+
+                db.emps.aggregate([
+                        { $group: { _id: "$JOB", avgSalary: { $avg: "$SAL" } } },
+                        { $match: { avgSalary: { $gt: 1500 } } },
+                        { $sort: { avgSalary: 1 } },
+                        { $project: { _id: 0, JOB: "$_id", avgSalary: 1 } }
+                        ]);
