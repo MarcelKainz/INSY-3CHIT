@@ -613,3 +613,31 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
          // 50
 
             db.emps.find({ JOB: db.emps.findOne({ ENAME: "JONES" }).JOB });
+
+
+        db.emps.aggregate([
+                {
+                    $facet: {
+                        maxsal: [
+                            { $group: { _id: null, maxSal: { $max: "$SAL" } } }
+                            ],
+                        employees: [
+                            { $match: {} }
+                            ]
+                        }
+                    },
+                {
+                    $project: {
+                        employees: {
+                            $filter: {
+                                input: "$employees",
+                                as: "emp",
+                                cond: { $eq: ["$$emp.SAL", { $arrayElemAt: ["$maxsal.maxSal", 0] }] }
+                                }
+                            }
+                        }
+                    },
+                { $unwind: "$employees" },
+                { $replaceRoot: { newRoot: "$employees" } },
+                { $project: { ENAME: 1, JOB: 1, SAL: 1, _id: 0 } }
+                ]);
