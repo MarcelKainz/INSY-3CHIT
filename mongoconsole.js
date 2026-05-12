@@ -650,3 +650,7 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                     { $limit: 1 },
                     { $project: { _id: 0, ENAME: 1, nameLength: 1 } }
                     ]);
+
+            // 53
+
+                db.emps.find({ dept_id: db.depts.findOne({ LOC: "NEW YORK" }).DEPTNO }).count();
