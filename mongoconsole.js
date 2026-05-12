@@ -614,7 +614,7 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
 
             db.emps.find({ JOB: db.emps.findOne({ ENAME: "JONES" }).JOB });
 
-
+        // 51
         db.emps.aggregate([
                 {
                     $facet: {
@@ -641,3 +641,12 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                 { $replaceRoot: { newRoot: "$employees" } },
                 { $project: { ENAME: 1, JOB: 1, SAL: 1, _id: 0 } }
                 ]);
+
+            // 52
+
+                db.emps.aggregate([
+                    { $project: { ENAME: 1, nameLength: { $strLenCP: "$ENAME" } } },
+                    { $sort: { nameLength: -1 } },
+                    { $limit: 1 },
+                    { $project: { _id: 0, ENAME: 1, nameLength: 1 } }
+                    ]);
