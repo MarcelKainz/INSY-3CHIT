@@ -688,3 +688,20 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                         }
                     }
                 ]);
+
+            // 56
+
+                db.emps.aggregate([
+                    { $group: { _id: "$JOB", avgSal: { $avg: "$SAL" } } },
+                    {
+                        $match: {
+                            avgSal: {
+                                $gt: db.emps.aggregate([
+                                    { $match: { JOB: "SALESMAN" } },
+                                    { $group: { _id: null, avgSal: { $avg: "$SAL" } } }
+                                    ]).toArray()[0].avgSal
+                                }
+                            }
+                        },
+                    { $project: { _id: 0, JOB: "$_id" } }
+                    ]);
