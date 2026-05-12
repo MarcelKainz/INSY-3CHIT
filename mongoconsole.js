@@ -553,3 +553,27 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                 }
             }
         ]);
+
+    // 48
+        db.emps.aggregate([
+          {
+            $addFields: {
+              totalCompensation: { $add: ["$SAL", { $ifNull: ["$COMM", 0] }] }
+            }
+          },
+          {
+            $match: {
+              totalCompensation: { $lt: 1500 }
+            }
+          },
+          {
+            $project: {
+              _id: 0,
+              ENAME: 1,
+              JOB: 1,
+              SAL: 1,
+              COMM: 1,
+              totalCompensation: 1
+            }
+          }]
+        );
