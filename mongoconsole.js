@@ -654,3 +654,7 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
             // 53
 
                 db.emps.find({ dept_id: db.depts.findOne({ LOC: "NEW YORK" }).DEPTNO }).count();
+
+            // 54
+
+                db.emps.find({ dept_id: db.depts.findOne({ LOC: "NEW YORK" }).DEPTNO });
