@@ -658,3 +658,33 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
             // 54
 
                 db.emps.find({ dept_id: db.depts.findOne({ LOC: "NEW YORK" }).DEPTNO });
+
+            // 55
+
+            db.emps.aggregate([
+                {
+                    $lookup: {
+                        localField: "dept_id",
+                        from: "depts",
+                        foreignField: "DEPTNO",
+                        as: "dept"
+                        }
+                    },
+                { $unwind: "$dept" },
+                {
+                    $match: {
+                        "dept.LOC": "CHICAGO",
+                        JOB: db.emps.findOne({ ENAME: "ALLEN" }).JOB
+                        }
+                    },
+                { $sort: { ENAME: 1 } },
+                {
+                    $project: {
+                        _id: 0,
+                        ENAME: 1,
+                        JOB: 1,
+                        dept_id: 1,
+                        LOC: "$dept.LOC"
+                        }
+                    }
+                ]);
