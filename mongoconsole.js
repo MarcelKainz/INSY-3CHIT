@@ -577,3 +577,35 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
             }
           }]
         );
+
+    // 49
+        db.getSiblingDB("htlzwettl").getCollection("depts").aggregate([
+            {
+                $project: {"d": "$$ROOT", "_id": 0}
+                },
+            {
+                $lookup: {
+                    localField: "d.DEPTNO",
+                    from: "emps",
+                    foreignField: "dept_id",
+                    as: "e"
+                    }
+                },
+            {
+                $unwind: {
+                    path: "$e",
+                    preserveNullAndEmptyArrays: true
+                    }
+                },
+            {
+                $match: {"e.dept_id": {$eq: null}}
+                },
+            {
+                $replaceRoot: {
+                    newRoot: {$mergeObjects: ["$d", "$e", "$$ROOT"]}
+                    }
+                },
+            {
+                $project: {"d": 0, "e": 0}
+                }
+            ])
