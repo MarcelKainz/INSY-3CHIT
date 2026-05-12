@@ -609,3 +609,7 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                 $project: {"d": 0, "e": 0}
                 }
             ])
+
+         // 50
+
+            db.emps.find({ JOB: db.emps.findOne({ ENAME: "JONES" }).JOB });
