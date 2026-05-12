@@ -705,3 +705,13 @@ db.getSiblingDB("htlzwettl").getCollection("emps").aggregate([
                         },
                     { $project: { _id: 0, JOB: "$_id" } }
                     ]);
+
+            // 57
+
+            db.emps.find(
+                    {
+                        dept_id: 10,
+                        JOB: { $in: db.emps.distinct("JOB", { dept_id: 30 }) }
+                        },
+                    { ENAME: 1, JOB: 1, _id: 0 }
+                    );
